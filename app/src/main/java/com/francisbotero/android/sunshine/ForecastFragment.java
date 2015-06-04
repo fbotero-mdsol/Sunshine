@@ -41,6 +41,7 @@ public class ForecastFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        setHasOptionsMenu(true);
         ArrayAdapter<String> adapter =
                 new ArrayAdapter(
                         getActivity(),
@@ -50,7 +51,7 @@ public class ForecastFragment extends Fragment {
         updater.updateUsing(initialDataProvider);
         AdapterView listView = (AdapterView)rootView.findViewById(R.id.listview_forecast);
         listView.setAdapter(adapter);
-        setHasOptionsMenu(true);
+        listView.setOnItemClickListener(new ToastOnItemClickListener());
         return rootView;
     }
 }
