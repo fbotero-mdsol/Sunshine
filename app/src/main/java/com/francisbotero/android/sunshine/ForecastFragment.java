@@ -51,7 +51,7 @@ public class ForecastFragment extends Fragment {
         updater.updateUsing(initialDataProvider);
         AdapterView listView = (AdapterView)rootView.findViewById(R.id.listview_forecast);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new ToastOnItemClickListener());
+        listView.setOnItemClickListener(new DetailOnItemClickListener());
         return rootView;
     }
 }
