@@ -15,6 +15,8 @@ public class PreferenceRepository {
 
     public String getLocation() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return preferences.getString(context.getString(R.string.pref_location_key), "94046");
+        String preferredLocationKey = context.getString(R.string.pref_location_key);
+        String defaultLocationValue = context.getString(R.string.pref_location_default);
+        return preferences.getString(preferredLocationKey, defaultLocationValue);
     }
 }
