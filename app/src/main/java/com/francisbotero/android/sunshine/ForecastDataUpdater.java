@@ -12,7 +12,8 @@ public class ForecastDataUpdater {
         this.adapter = adapter;
     }
     public void updateUsing(ForecastDataProvider dataProvider) {
+        PreferenceRepository repository = new PreferenceRepository(adapter.getContext());
         RefreshForecastDataTask task = new RefreshForecastDataTask(dataProvider, adapter);
-        task.execute("94045");
+        task.execute(repository.getLocation());
     }
 }
