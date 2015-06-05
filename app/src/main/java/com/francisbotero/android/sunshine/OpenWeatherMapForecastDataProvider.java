@@ -18,8 +18,8 @@ public class OpenWeatherMapForecastDataProvider implements ForecastDataProvider 
 
     WeatherDataParser parser;
 
-    public OpenWeatherMapForecastDataProvider() {
-        parser = new WeatherDataParser();
+    public OpenWeatherMapForecastDataProvider(WeatherDataParser parser) {
+        this.parser = parser;
     }
 
     public List<String> getForecast(String postalCode) {

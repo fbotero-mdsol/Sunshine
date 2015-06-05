@@ -1,5 +1,6 @@
 package com.francisbotero.android.sunshine;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,11 +14,10 @@ import android.widget.ArrayAdapter;
 
 public class ForecastFragment extends Fragment {
     ForecastDataUpdater updater;
-    ForecastDataProvider initialDataProvider;
     ForecastDataProvider refreshDataProvider;
+    ArrayAdapter<String> adapter;
+
     public ForecastFragment() {
-        initialDataProvider = new MockForecastDataProvider();
-        refreshDataProvider = new OpenWeatherMapForecastDataProvider();
     }
 
     @Override
@@ -42,16 +42,25 @@ public class ForecastFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         setHasOptionsMenu(true);
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter(
+         adapter =  new ArrayAdapter(
                         getActivity(),
                         R.layout.list_item_forecast,
                         R.id.list_item_forecast_textview);
         updater = new ForecastDataUpdater(adapter);
-        updater.updateUsing(initialDataProvider);
         AdapterView listView = (AdapterView)rootView.findViewById(R.id.listview_forecast);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new DetailOnItemClickListener());
+        Context context = rootView.getContext();
+        TemperatureConverterFactory factory = new TemperatureConverterFactory(context);
+        WeatherDataParser parser = new WeatherDataParser(factory);
+        refreshDataProvider = new OpenWeatherMapForecastDataProvider(parser);
+
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        updater.updateUsing(refreshDataProvider);
     }
 }

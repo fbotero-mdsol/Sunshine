@@ -13,6 +13,11 @@ public class WeatherDataParser {
 
     private final String LOG_TAG = WeatherDataParser.class.getSimpleName();
 
+    TemperatureConverterFactory converterFactory;
+
+    public WeatherDataParser(TemperatureConverterFactory converterFactory) {
+        this.converterFactory = converterFactory;
+    }
 
     /* The date/time conversion code is going to be moved outside the asynctask later,
  * so for convenience we're breaking it out into its own method now.
@@ -28,9 +33,10 @@ public class WeatherDataParser {
      * Prepare the weather high/lows for presentation.
      */
     private String formatHighLows(double high, double low) {
+        TemperatureConverter converter = converterFactory.get();
         // For presentation, assume the user doesn't care about tenths of a degree.
-        long roundedHigh = Math.round(high);
-        long roundedLow = Math.round(low);
+        long roundedHigh = Math.round(converter.convert(high));
+        long roundedLow = Math.round(converter.convert(low));
 
         String highLowStr = roundedHigh + "/" + roundedLow;
         return highLowStr;

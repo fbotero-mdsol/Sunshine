@@ -9,14 +9,21 @@ import android.preference.PreferenceManager;
  */
 public class PreferenceRepository {
     Context context;
+    SharedPreferences preferences;
     public PreferenceRepository(Context context) {
         this.context = context;
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     public String getLocation() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String preferredLocationKey = context.getString(R.string.pref_location_key);
-        String defaultLocationValue = context.getString(R.string.pref_location_default);
-        return preferences.getString(preferredLocationKey, defaultLocationValue);
+        String preferenceKey = context.getString(R.string.pref_location_key);
+        String defaultValue = context.getString(R.string.pref_location_default);
+        return preferences.getString(preferenceKey, defaultValue);
+    }
+
+    public String getUnits() {
+        String preferenceKey = context.getString(R.string.pref_units_key);
+        String defaultValue = context.getString(R.string.pref_units_imperial);
+        return preferences.getString(preferenceKey, defaultValue);
     }
 }
