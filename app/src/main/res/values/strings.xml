@@ -33,4 +33,7 @@
     <string name="pref_units_label_imperial" translatable="false">Imperial (U.S.)</string>
 
     <string name="action_map">Map Location</string>
+    <string name="action_share">Share</string>
+
+    <string name="share_forecast_hashtag">#SunshineApp</string>
 </resources>
